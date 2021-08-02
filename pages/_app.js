@@ -7,6 +7,8 @@ export function useAppContext() {
 }
 
 function MyApp({ Component, pageProps }) {
+  const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
 
@@ -22,7 +24,9 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ showMenu, setShowMenu }}>
+    <AppContext.Provider
+      value={{ showMenu, setShowMenu, username, setUsername, token, setToken }}
+    >
       <Component {...pageProps} />
     </AppContext.Provider>
   );

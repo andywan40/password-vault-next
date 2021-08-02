@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Page from "../components/Page";
 
 export default function Login() {
+  const [errorMsg, setErrorMsg] = useState("");
+  const router = useRouter();
   const {
     register,
     watch,
@@ -11,12 +14,21 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async data => {
-    const res = await axios.post(
-      "http://127.0.0.1:8000/api/accounts/register",
-      data
-    );
-    console.log(res);
+  const onSubmit = data => {
+    axios
+      .post("http://127.0.0.1:8000/api/accounts/register/", data)
+      .then(res => {
+        console.log(res);
+        if (res.data.status === "success") {
+          router.push("/login");
+        } else {
+          setErrorMsg(res.data.message);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        setErrorMsg("Something Went Wrong. Please Try Again");
+      });
   };
 
   return (
@@ -124,11 +136,12 @@ export default function Login() {
               </span>
             )}
           </div>
+          <span className="text-red-500">{errorMsg}</span>
           <button
             type="submit"
             className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg font-title tracking-widest"
           >
-            Log In
+            Sign Up
           </button>
         </form>
       </div>

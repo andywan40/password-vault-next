@@ -16,7 +16,7 @@ export default function Projects() {
             Projects
           </h1>
         </div>
-        <div className="-m-4">
+        {/* <div className="-m-4">
           {projects.map((project, i) => (
             <div className="grid grid-cols-12 my-24" key={project.title}>
               <div
@@ -66,7 +66,7 @@ export default function Projects() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

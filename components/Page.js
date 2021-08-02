@@ -7,8 +7,7 @@ import Footer from "./Footer";
 import { useAppContext } from "../pages/_app";
 
 export default function Page({ children }) {
-  const state = useAppContext();
-  const { showMenu } = state;
+  const { showMenu } = useAppContext();
   return (
     <>
       <Head>

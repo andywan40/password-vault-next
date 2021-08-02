@@ -1,9 +1,28 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useAppContext } from "../pages/_app";
 import Page from "../components/Page";
 
 export default function Login() {
+  const router = useRouter();
+  const { username, setUsername, token, setToken } = useAppContext();
+  useEffect(() => {
+    //fetch csrf token
+    axios
+      .get("http://localhost:8000/api/accounts/csrf/", {
+        withCredentials: true,
+      })
+      .then(res => {
+        let csrfToken = res.headers["x-csrftoken"];
+        setToken(csrfToken);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -11,18 +30,25 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async data => {
-    data = {
-      username: "asdfasdfasdf",
-      email: "adfa@gmaldsf.com",
-      password: "newpAssword",
-      password2: "newpAssword",
+    //login
+    const headers = {
+      "Content-Type": "application/json",
+      "X-CSRFToken": token,
     };
-
-    const res = await axios.post(
-      "http://127.0.0.1:8000/api/accounts/register",
-      data
-    );
-    console.log(res);
+    axios
+      .post("http://localhost:8000/api/accounts/login/", data, {
+        withCredentials: true,
+        headers: headers,
+      })
+      .then(res => {
+        console.log(res);
+        //set username and redirect to dashboard
+        setUsername(res.data.username);
+        router.push("/dashboard");
+      })
+      .catch(e => {
+        console.log(e);
+      });
   };
 
   return (

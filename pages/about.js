@@ -73,23 +73,6 @@ export default function About() {
           <ArrowDownIcon className="h-7 w-7 ml-2 mt-4 text-pink-400 inline-block md:hidden animate-bounce" />
         </div>
       </div>
-      <div className="grid grid-cols-2 xl:grid-cols-1 xxs:px-1 xs:px-4 sm:px-8 md:px-20 px-36 mb-16">
-        {images.map(image => (
-          <div
-            className="relative group flex text-center justify-center m-1"
-            key={image.title}
-          >
-            <Image
-              src={image.src}
-              className="group-hover:brightness-50 rounded-md m-5"
-            />
-            <div className="image-text text-2xl font-title group-hover:opacity-100 group-hover:font-medium">
-              {image.title}
-              <p className="text-sm">Photo By {image.author}</p>
-            </div>
-          </div>
-        ))}
-      </div>
     </Page>
   );
 }
