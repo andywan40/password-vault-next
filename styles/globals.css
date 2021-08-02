@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes strike {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.strike,
+.strike-white {
+  position: relative;
+}
+
+.active {
+  @apply line-through;
+  text-decoration-color: #ed64a6;
+}
+
+.active-white {
+  @apply line-through;
+  text-decoration-color: #fff;
+}
+
+.strike:hover::after {
+  @apply bg-pink-500 h-px absolute left-0 w-full;
+  content: " ";
+  top: 50%;
+  animation-name: strike;
+  animation-duration: 400ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.strike-white:hover::after {
+  @apply bg-white h-1 absolute left-0 w-full;
+  content: " ";
+  top: 50%;
+  animation-name: strike;
+  animation-duration: 400ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.image {
+  @apply block rounded;
+  width: 90%;
+  height: 90%;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.image-text {
+  @apply opacity-0 absolute text-white text-center;
+  transition: 0.5s ease;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.scroll {
+  @apply opacity-0;
+  transition: all 1s ease-in-out;
+}
+
+.project-img {
+  @apply absolute opacity-0;
+  left: 50%;
+  top: 50%;
+  transform: translate3D(-50%, -47%, 0) scale(0.9);
+  transition: all 0.8s cubic-bezier(0.42, 0, 0, 1.15);
+}
+
+.img-container:hover .project-img {
+  @apply opacity-40 brightness-40;
+  transform: translate3D(-50%, -50%, 0) scale(0.94);
+}
+
+.text-shadow-white {
+  text-shadow: 1px 1px #5b5d61;
+}
+
+.particles-container {
+  @apply h-full w-full absolute z-0;
+  left: 0;
+  top: 0;
+}
+
+.visit-link {
+  @apply text-black;
+  position: relative;
+  border: 1px solid rgb(0, 0, 0);
+  background: linear-gradient(to left, white 50%, black 50%) right;
+  background-size: 200%;
+  transition: 0.5s ease-in-out;
+}
+
+.visit-link:hover {
+  @apply text-white;
+  transform: translateX(0.5rem);
+  background-position: left;
+}
+
+.visit-link:active {
+  transform: translate(0.5rem, 0.5rem);
+  box-shadow: 0px 10px 20px -15px rgba(229, 231, 235, 0.2);
+}
