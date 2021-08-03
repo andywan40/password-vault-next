@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAppContext } from "../pages/_app";
 import Page from "../components/Page";
+import PasswordItemList from "../components/PasswordItemList";
 
 export default function About() {
   const { username } = useAppContext();
@@ -10,14 +11,15 @@ export default function About() {
   useEffect(() => {
     const headers = {
       "Content-Type": "application/json",
+      Authorization: "Token " + "d69b7d97442c2c1a5cc85ed2ca6702e04c41dc08",
     };
     axios
-      .get("http://localhost:8000/api/passwords/passwords/", {
+      .get("http://localhost:8000/api/passwords/", {
         headers,
       })
       .then(res => {
         console.log(res);
-        setPasswords(res.data.passwords);
+        setPasswords(res.data);
       })
       .catch(e => {
         console.log(e);
@@ -30,19 +32,7 @@ export default function About() {
         <h1 className="text-black font-title text-4xl text-center">
           Welcome back <span className="text-indigo-600">{username}</span> !
         </h1>
-        {passwords.map(password => {
-          return (
-            <div
-              key={password.date_added}
-              className="border border-solid border-indigo-600 my-1 text-center"
-            >
-              <h1>{password.name}</h1>
-              <h6>{password.description}</h6>
-              <p>username: {password.username}</p>
-              <p>password: {password.password}</p>
-            </div>
-          );
-        })}
+        <PasswordItemList passwords={passwords} />
       </div>
     </Page>
   );

@@ -10,17 +10,17 @@ export default function Login() {
   const { username, setUsername, token, setToken } = useAppContext();
   useEffect(() => {
     //fetch csrf token
-    axios
-      .get("http://localhost:8000/api/accounts/csrf/", {
-        withCredentials: true,
-      })
-      .then(res => {
-        let csrfToken = res.headers["x-csrftoken"];
-        setToken(csrfToken);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // axios
+    //   .get("http://localhost:8000/api/accounts/csrf/", {
+    //     withCredentials: true,
+    //   })
+    //   .then(res => {
+    //     let csrfToken = res.headers["x-csrftoken"];
+    //     setToken(csrfToken);
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
   }, []);
 
   const {
@@ -35,20 +35,20 @@ export default function Login() {
       "Content-Type": "application/json",
       "X-CSRFToken": token,
     };
-    axios
-      .post("http://localhost:8000/api/accounts/login/", data, {
-        withCredentials: true,
-        headers: headers,
-      })
-      .then(res => {
-        console.log(res);
-        //set username and redirect to dashboard
-        setUsername(res.data.username);
-        router.push("/dashboard");
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // axios
+    //   .post("http://localhost:8000/api/accounts/login/", data, {
+    //     withCredentials: true,
+    //     headers: headers,
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     //set username and redirect to dashboard
+    //     setUsername(res.data.username);
+    //     router.push("/dashboard");
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
   };
 
   return (

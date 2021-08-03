@@ -13,30 +13,30 @@ export default function Navbar() {
   const { showMenu, setShowMenu, username, setUsername, token, setToken } =
     useAppContext();
   const handleLogout = () => {
-    console.log(token);
-    const headers = {
-      "Content-Type": "application/json",
-      "X-CSRFToken": token,
-    };
-    axios
-      .post(
-        "http://localhost:8000/api/accounts/logout/",
-        {},
-        {
-          headers,
-          withCredentials: true,
-        }
-      )
-      .then(res => {
-        console.log(res);
-        setUsername(null);
-        setToken(null);
-        router.push("/");
-      })
-      .catch(e => {
-        console.log(e);
-        alert("something went wrong. try again later");
-      });
+    // console.log(token);
+    // const headers = {
+    //   "Content-Type": "application/json",
+    //   "X-CSRFToken": token,
+    // };
+    // axios
+    //   .post(
+    //     "http://localhost:8000/api/accounts/logout/",
+    //     {},
+    //     {
+    //       headers,
+    //       withCredentials: true,
+    //     }
+    //   )
+    //   .then(res => {
+    //     console.log(res);
+    //     setUsername(null);
+    //     setToken(null);
+    //     router.push("/");
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //     alert("something went wrong. try again later");
+    //   });
   };
   return (
     <header
@@ -58,7 +58,7 @@ export default function Navbar() {
             </a>
           </Link>{" "}
         </div>
-        <nav className="title-font font-medium text-sm tracking-wide flex justify-end items-center pt-5">
+        <nav className="title-font font-bold text-sm tracking-wide flex justify-end items-center pt-5">
           {!showMenu && (
             <>
               {!username && (
