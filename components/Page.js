@@ -17,7 +17,7 @@ export default function Page({ children }) {
           name="description"
           content="Password Vault | The Most Secure Password Manager"
         ></meta>
-        <link rel="icon" href="/logo_colored.png" />
+        <link rel="icon" href="/title_logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

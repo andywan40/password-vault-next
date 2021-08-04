@@ -1,7 +1,7 @@
 import PasswordItem from "./PasswordItem";
 export default function PasswordItemList({ passwords }) {
   return (
-    <div className="grid grid-cols-2">
+    <div className="w-full h-full">
       {passwords?.length !== 0 ? (
         passwords.map(password => {
           return <PasswordItem key={password.id} {...password} />;

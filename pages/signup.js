@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -36,7 +37,7 @@ export default function Login() {
       <div className="container xs:px-6 sm:px-8 lg:px-20 px-36 sm:pt-0 sm:pb-20 pt-6 pb-10 text-gray-600 h-full min-h-screen font-navbar flex flex-col justify-start items-center xs:pt-10 text-left">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="col-start-7 col-span-6 px-8 flex flex-col w-4/6 mt-2 lg:col-start-1 lg:col-span-12"
+          className="col-start-7 col-span-6 px-8 flex flex-col w-1/2 lg:w-5/6 mt-2 lg:col-start-1 lg:col-span-12"
         >
           <h2 className="text-indigo-600 xs:text-1xl sm:text-2xl text-3xl mb-2 font-medium font-title">
             Sign Up
@@ -52,6 +53,7 @@ export default function Login() {
             <input
               id="username"
               name="username"
+              autoComplete="off"
               {...register("username", {
                 required: "Username is required",
                 // pattern: {
@@ -77,6 +79,7 @@ export default function Login() {
             <input
               id="email"
               name="email"
+              autoComplete="off"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -143,6 +146,12 @@ export default function Login() {
           >
             Sign Up
           </button>
+          <p className="p-1">
+            Already have an account?{" "}
+            <Link href="/login">
+              <a className="text-indigo-600 font-medium underline">Log In</a>
+            </Link>
+          </p>
         </form>
       </div>
     </Page>
