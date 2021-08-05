@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-// import { TrashIcon } from "@heroicons/react/solid";
+import axios from "axios";
+import { useAppContext } from "../pages/_app";
 
 function getModalStyle() {
   const top = 50;
@@ -13,20 +13,20 @@ function getModalStyle() {
   };
 }
 
-export default function EditModal({ open, setOpen, item }) {
-  const [modalStyle] = React.useState(getModalStyle);
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+export default function FormModal({ open, setOpen, item, mode }) {
+  const { token, updateCount, setUpdateCount } = useAppContext();
+  const [modalStyle] = useState(getModalStyle);
   const [formData, setFormData] = useState({
     name: item.name,
     description: item.description,
     username: item.username,
     password: item.password,
     notes: item.notes,
+    email: item.email,
     website: item.website,
   });
+
+  const [initialFormData, setInitialFormData] = useState(formData);
 
   const handleChange = e => {
     setFormData({
@@ -35,12 +35,89 @@ export default function EditModal({ open, setOpen, item }) {
     });
   };
 
-  const handleUpdate = e => {
-    console.log("updated");
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
+
+  const handleCancel = () => {
+    resetForm();
+    handleClose();
+  };
+
+  const handleSaveBtnClick = e => {
+    if (mode === "update") {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Token " + token,
+      };
+      axios
+        .put(`http://localhost:8000/api/passwords/${item.id}/`, formData, {
+          headers,
+        })
+        .then(res => {
+          console.log(res);
+          //set initialFormData to newly saved Form Data
+          setInitialFormData(formData);
+          //trigger dashboard to fetch new data
+          setUpdateCount(() => updateCount + 1);
+          //close form
+          handleClose();
+        })
+        .catch(e => {
+          console.log(e);
+          alert("Something went wrong, please try again later!");
+        });
+    } else if (mode === "add") {
+      console.log(token);
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: "Token " + token,
+      };
+      axios
+        .post(`http://localhost:8000/api/passwords/`, formData, {
+          headers,
+        })
+        .then(res => {
+          console.log(res);
+          //set initialFormData to newly saved Form Data
+          setInitialFormData({});
+          setFormData({});
+          //trigger dashboard to fetch new data
+          setUpdateCount(() => updateCount + 1);
+          //close form
+          handleClose();
+        })
+        .catch(e => {
+          console.log(e);
+          alert("Something went wrong, please try again later!");
+        });
+    }
   };
 
   const handleDelete = e => {
-    console.log("deleted");
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Token " + token,
+    };
+    axios
+      .delete(`http://localhost:8000/api/passwords/${item.id}/`, {
+        headers,
+      })
+      .then(res => {
+        console.log(res);
+        //trigger dashboard to fetch new data
+        setUpdateCount(() => updateCount + 1);
+        //close form
+        handleClose();
+      })
+      .catch(e => {
+        console.log(e);
+        alert("Something went wrong, please try again later!");
+      });
   };
 
   const body = (
@@ -112,7 +189,23 @@ export default function EditModal({ open, setOpen, item }) {
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </div>
-      <div className="col-span-12 p-2">
+      <div className="col-span-6 p-2">
+        <label
+          htmlFor="website"
+          className="leading-7 text-sm text-gray-600 font-content"
+        >
+          Email
+        </label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        />
+      </div>
+      <div className="col-span-6 p-2">
         <label
           htmlFor="website"
           className="leading-7 text-sm text-gray-600 font-content"
@@ -148,13 +241,13 @@ export default function EditModal({ open, setOpen, item }) {
       <div className="mt-2 flex justify-between col-span-12 px-2">
         <div>
           <button
-            onClick={handleUpdate}
+            onClick={handleSaveBtnClick}
             className="h-full text-lg rounded-md mx-1 px-2 bg-indigo-600 hover:bg-indigo-700 text-white"
           >
             Save
           </button>
           <button
-            onClick={handleClose}
+            onClick={handleCancel}
             className="h-full text-lg rounded-md mx-1 px-2 bg-white hover:bg-indigo-700 text-gray-600 border border-gray-600 hover:bg-gray-300 hover:text-gray-800"
           >
             Cancel
@@ -185,7 +278,7 @@ export default function EditModal({ open, setOpen, item }) {
     <div>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleCancel}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >

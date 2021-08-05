@@ -23,6 +23,7 @@ function MyApp({
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [updateCount, setUpdateCount] = useState(0);
   const router = useRouter();
   const protectedRoutes = ["/dashboard"];
 
@@ -59,6 +60,8 @@ function MyApp({
           setUsername,
           token,
           setToken,
+          updateCount,
+          setUpdateCount,
         }}
       >
         <AuthorizedRoute protectedRoutes={protectedRoutes}>
