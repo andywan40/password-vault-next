@@ -45,14 +45,14 @@ export default function Dashboard() {
         <Sidebar />
         <div className="sm:col-span-10 md:col-span-9 col-span-8 px-5">
           <div className="flex justify-between mb-3 pb-2 border-b">
-            <h1 className="text-black text-2xl font-content uppercase px-5 inline-block">
+            <h1 className="text-black lg:text-xl text-2xl font-content uppercase px-5 inline-block">
               My Vault
             </h1>
             <div className="flex items-center justify-center">
               <DashboardMenu />
               <button
                 onClick={() => setOpen(true)}
-                className="flex items-center justify-center font-bold font-content p-2 rounded-md text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white"
+                className="text-sm md:text-xs flex items-center justify-center font-bold font-content p-2 rounded-md text-indigo-600 border border-indigo-600 hover:bg-indigo-600 hover:text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

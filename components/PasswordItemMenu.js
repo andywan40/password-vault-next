@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useAppContext } from "../pages/_app";
 
 export default function PasswordItemMenu(item) {
+  const { token, updateCount, setUpdateCount } = useAppContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = e => {
     e.stopPropagation();
@@ -15,7 +18,24 @@ export default function PasswordItemMenu(item) {
   };
 
   const handleDelete = e => {
-    handleClose(e);
+    e.stopPropagation();
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Token " + token,
+    };
+    axios
+      .delete(`http://localhost:8000/api/passwords/${item.id}/`, {
+        headers,
+      })
+      .then(res => {
+        console.log(res);
+        //trigger dashboard to fetch new data
+        setUpdateCount(() => updateCount + 1);
+      })
+      .catch(e => {
+        console.log(e);
+        alert("Something went wrong, please try again later!");
+      });
   };
 
   const handleLaunch = e => {
