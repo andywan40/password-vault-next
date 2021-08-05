@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { MenuIcon, XIcon } from "@heroicons/react/solid";
 import axios from "axios";
@@ -16,9 +15,9 @@ export default function Navbar() {
   const { showMenu, setShowMenu, username, setUsername, token, setToken } =
     useAppContext();
   const handleLogout = () => {
-    // removeCookie(["userToken"]);
-    // setToken(null);
-    // setUsername(null);
+    removeCookie(["userToken"]);
+    setToken(null);
+    setUsername(null);
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`,
