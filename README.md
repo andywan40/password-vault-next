@@ -1,3 +1,3 @@
-# Welcome to my personal website!
+# Frontend portion of the password vault website
 
-Built using Next.js, Tailwind css, Node.js and Express.js.
+Built using Next.js, Tailwind css and Material UI.
