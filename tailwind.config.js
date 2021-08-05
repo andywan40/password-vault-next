@@ -24,7 +24,7 @@ module.exports = {
         "3/4": "75%",
         full: "100%",
         "85vh": "85vh",
-        footer: "3vh",
+        footer: "5vh",
       },
       brightness: {
         35: ".35",

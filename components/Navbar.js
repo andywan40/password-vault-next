@@ -6,7 +6,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useAppContext } from "../pages/_app";
 import logo from "../public/logo.png";
-// import whiteLogo from "../public/logo.png";
+import whiteLogo from "../public/white_logo.png";
 
 export default function Navbar() {
   const router = useRouter();

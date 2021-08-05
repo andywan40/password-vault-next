@@ -1,18 +1,43 @@
+import Link from "next/link";
 export default function Landing() {
   return (
     <section id="about" className="h-screen">
-      <div className="grid grid-cols-12 h-screen">
-        <div className="col-start-4 col-end-8 md:col-start-5 md:col-end-9 flex justify-center items-center">
-          <h1 className="font-title font-extrabold leading-0.6 xxs:text-5xl xs:text-6xl lg:text-10xl text-12xl mb-4 text-transparent bg-clip-text bg-gradient-to-b from-blue-500 via-blue-600 via-purple-500 to-purple-600">
-            Password <br></br> Vault
-          </h1>
+      <div className="grid grid-cols-12 xs:mt-10">
+        <div className="col-start-2 col-end-7 md:col-start-3 md:col-end-8 flex justify-center">
+          <div>
+            <h1 className="font-title leading-snug md:text-2xl text-3xl text-indigo-800">
+              The Most Secure Password Manager For Personal Use
+            </h1>
+            <h6 className="font-content text-gray-500 md:text-base text-lg mt-3">
+              Password Vault offers the safest way for individuals to store
+              personal and sensitive data.
+            </h6>
+            <div className="mt-8">
+              <Link href="/signup">
+                <a>
+                  <button className="sm:ml-0 ml-2 sm:px-2 sm:py-1 px-4 py-3 md:text-base text-xl border-indigo-600 border-2 rounded-md bg-indigo-500 hover:bg-indigo-700 text-white uppercase">
+                    Get Started
+                  </button>
+                </a>
+              </Link>
+            </div>
+          </div>
         </div>
         <div className="col-start-8 col-end-12 md:col-start-9 md:col-end-13">
-          {/* <img
-                        className="object-cover object-center rounded"
-                        alt="hero"
-                        src="./coding.svg"
-                    /> */}
+          <img
+            className="object-cover object-center rounded lg:h-full"
+            alt="hero"
+            src="./landing1.svg"
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-12 lg:hidden">
+        <div className="col-start-4 col-span-5 mr-5">
+          <img
+            className="object-cover object-center rounded"
+            alt="hero"
+            src="./landing2.svg"
+          />
         </div>
       </div>
     </section>

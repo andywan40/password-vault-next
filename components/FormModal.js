@@ -127,7 +127,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-6 p-2">
         <label
           htmlFor="name"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Name
         </label>
@@ -143,7 +143,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-6 p-2">
         <label
           htmlFor="description"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Description
         </label>
@@ -159,7 +159,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-6 p-2">
         <label
           htmlFor="username"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Username
         </label>
@@ -175,7 +175,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-6 p-2">
         <label
           htmlFor="password"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Password
         </label>
@@ -191,7 +191,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-6 p-2">
         <label
           htmlFor="website"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Email
         </label>
@@ -207,7 +207,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-6 p-2">
         <label
           htmlFor="website"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Website
         </label>
@@ -223,7 +223,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       <div className="col-span-12 p-2">
         <label
           htmlFor="notes"
-          className="leading-7 text-md text-gray-600 font-content"
+          className="leading-7 text-base text-gray-600 font-content"
         >
           Notes
         </label>
