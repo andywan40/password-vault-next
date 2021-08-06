@@ -24,7 +24,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
     notes: item.notes,
     email: item.email,
     website: item.website,
-    isFavorite: item.is_favorite,
+    isFavorite: item.isFavorite,
   });
 
   const [initialFormData, setInitialFormData] = useState(formData);
@@ -73,6 +73,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
           alert("Something went wrong, please try again later!");
         });
     } else if (mode === "add") {
+      console.log(formData);
       const headers = {
         "Content-Type": "application/json",
         Authorization: "Token " + token,

@@ -8,8 +8,8 @@ import DashboardMenu from "../components/DashboardMenu";
 import PasswordItemList from "../components/PasswordItemList";
 
 export default function Dashboard() {
-  const { token, updateCount } = useAppContext();
-  const [passwords, setPasswords] = useState([]);
+  const { token, updateCount, passwords, setPasswords, type } = useAppContext();
+  // const [passwords, setPasswords] = useState([]);
   const [open, setOpen] = useState(false);
   const item = {
     name: "",
@@ -28,7 +28,7 @@ export default function Dashboard() {
       Authorization: "Token " + token,
     };
     axios
-      .get("http://localhost:8000/api/passwords/", {
+      .get(`http://localhost:8000/api/passwords/?type=${type}`, {
         headers,
       })
       .then(res => {
@@ -38,7 +38,7 @@ export default function Dashboard() {
       .catch(e => {
         console.log(e);
       });
-  }, [updateCount]);
+  }, [updateCount, type]);
 
   return (
     <Page>

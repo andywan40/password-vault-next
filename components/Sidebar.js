@@ -1,11 +1,32 @@
+import { useAppContext } from "../pages/_app";
+import axios from "axios";
+
 export default function Sidebar() {
+  const { type, setType } = useAppContext();
+  const getAllItems = e => {
+    setType("all");
+  };
+
+  const getFavoriteItems = e => {
+    setType("favorite");
+  };
+
+  const getDeletedItems = e => {};
+
   return (
     <div className="col-start-1 col-span-3 md:col-start-2 md:col-span-10 border rounded-md border-gray-200 text-black h-4/6">
       <div className="w-full border-b p-3 bg-gray-100 font-content uppercase">
         Filters
       </div>
       <div>
-        <div className="w-full py-2 px-3 pt-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline">
+        <div
+          onClick={getAllItems}
+          className={
+            type === "all"
+              ? "w-full py-2 px-3 pt-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline text-indigo-600 font-bold"
+              : "w-full py-2 px-3 pt-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline"
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -16,7 +37,14 @@ export default function Sidebar() {
           </svg>
           <span className="pl-2">All Items</span>
         </div>
-        <div className="w-full p-2 px-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline">
+        <div
+          onClick={getFavoriteItems}
+          className={
+            type === "favorite"
+              ? "w-full py-2 px-3 pt-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline text-indigo-600 font-bold"
+              : "w-full py-2 px-3 pt-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline"
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -27,7 +55,10 @@ export default function Sidebar() {
           </svg>
           <span className="pl-2">Favorites</span>
         </div>
-        <div className="w-full p-2 px-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline">
+        <div
+          onClick={getDeletedItems}
+          className="w-full p-2 px-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
