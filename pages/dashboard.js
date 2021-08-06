@@ -19,7 +19,7 @@ export default function Dashboard() {
     notes: "",
     email: "",
     website: "",
-    isFavorite: false,
+    is_favorite: false,
   };
 
   useEffect(() => {

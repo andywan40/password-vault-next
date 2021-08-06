@@ -24,7 +24,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
     notes: item.notes,
     email: item.email,
     website: item.website,
-    isFavorite: item.isFavorite,
+    is_favorite: item.is_favorite,
   });
 
   const [initialFormData, setInitialFormData] = useState(formData);
@@ -61,19 +61,23 @@ export default function FormModal({ open, setOpen, item, mode }) {
         })
         .then(res => {
           console.log(res);
-          //set initialFormData to newly saved Form Data
-          setInitialFormData(formData);
-          //trigger dashboard to fetch new data
-          setUpdateCount(() => updateCount + 1);
-          //close form
-          handleClose();
+          if (res.data.status === 200) {
+            //set initialFormData to newly saved Form Data
+            setInitialFormData(formData);
+            setFormData(formData);
+            //trigger dashboard to fetch new data
+            setUpdateCount(() => updateCount + 1);
+            //close form
+            handleClose();
+          } else {
+            alert("Failed");
+          }
         })
         .catch(e => {
           console.log(e);
           alert("Something went wrong, please try again later!");
         });
     } else if (mode === "add") {
-      console.log(formData);
       const headers = {
         "Content-Type": "application/json",
         Authorization: "Token " + token,
@@ -84,13 +88,17 @@ export default function FormModal({ open, setOpen, item, mode }) {
         })
         .then(res => {
           console.log(res);
-          //set initialFormData to newly saved Form Data
-          setInitialFormData(item);
-          setFormData(item);
-          //trigger dashboard to fetch new data
-          setUpdateCount(() => updateCount + 1);
-          //close form
-          handleClose();
+          if (res.data.status === 201) {
+            //set initialFormData to newly saved Form Data
+            setInitialFormData(item);
+            setFormData(item);
+            //trigger dashboard to fetch new data
+            setUpdateCount(() => updateCount + 1);
+            //close form
+            handleClose();
+          } else {
+            alert("Failed");
+          }
         })
         .catch(e => {
           console.log(e);
@@ -102,7 +110,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
   const toggleFavorite = e => {
     setFormData({
       ...formData,
-      isFavorite: !formData.isFavorite,
+      is_favorite: !formData.is_favorite,
     });
   };
 
@@ -265,7 +273,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
           <button
             onClick={toggleFavorite}
             className={
-              formData.isFavorite
+              formData.is_favorite
                 ? "rounded-md p-3 text-indigo-600 border border-indigo-600 mx-1"
                 : "rounded-md p-3 text-gray-300 border border-gray-500 mx-1"
             }

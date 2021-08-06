@@ -26,7 +26,7 @@ export default function PasswordItem(item) {
       </div>
       <div className="col-span-7 text-left px-5">
         <span
-          className="hover:underline cursor-pointer text-lg text-indigo-600"
+          className="hover:underline cursor-pointer text-lg text-indigo-600 font-medium"
           onClick={() => setOpen(true)}
         >
           {item.name}
