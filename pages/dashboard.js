@@ -19,6 +19,7 @@ export default function Dashboard() {
     notes: "",
     email: "",
     website: "",
+    isFavorite: false,
   };
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Dashboard() {
     <Page>
       <div className="container grid grid-cols-12 xs:px-6 sm:px-8 lg:px-20 px-28 sm:pt-0 sm:pb-20 pt-6 pb-10 text-gray-600 h-full min-h-screen font-navbar">
         <Sidebar />
-        <div className="sm:col-span-10 md:col-span-9 col-span-8 px-5">
+        <div className="md:col-start-1 md:col-span-12 col-span-9 px-5">
           <div className="flex justify-between mb-3 pb-2 border-b">
             <h1 className="text-black lg:text-xl text-2xl font-content uppercase px-5 inline-block">
               My Vault

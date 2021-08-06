@@ -25,13 +25,13 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async data => {
+  const onSubmit = data => {
     //login
     const headers = {
       "Content-Type": "application/json",
     };
     axios
-      .post("http://localhost:8000/api/accounts/login/", JSON.stringify(data), {
+      .post("http://localhost:8000/api/accounts/login/", data, {
         //withCredentials: true,
         headers: headers,
       })

@@ -1,6 +1,6 @@
 export default function Sidebar() {
   return (
-    <div className="col-start-1 col-span-3 border rounded-md border-gray-200 text-black h-4/6">
+    <div className="col-start-1 col-span-3 md:col-start-2 md:col-span-10 border rounded-md border-gray-200 text-black h-4/6">
       <div className="w-full border-b p-3 bg-gray-100 font-content uppercase">
         Filters
       </div>
