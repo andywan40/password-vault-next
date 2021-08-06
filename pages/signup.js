@@ -42,7 +42,6 @@ export default function Login() {
           <h2 className="text-indigo-600 xs:text-1xl sm:text-2xl text-3xl mb-2 font-medium font-title">
             Sign Up
           </h2>
-          {/* <p className="leading-relaxed mb-5 font-content">How can I help?</p> */}
           <div className="relative mb-4">
             <label
               htmlFor="username"
@@ -147,7 +146,7 @@ export default function Login() {
             Sign Up
           </button>
           <p className="p-1">
-            Already have an account?{" "}
+            Already have an account? <br className="hidden sm:block"></br>
             <Link href="/login">
               <a className="text-indigo-600 font-medium underline">Log In</a>
             </Link>
