@@ -1,14 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GlobeIcon } from "@heroicons/react/solid";
+import { useAppContext } from "../pages/_app";
 import PasswordItemMenu from "./PasswordItemMenu";
 import FormModal from "./FormModal";
 
 export default function PasswordItem(item) {
+  const { checkedIds, setCheckedIds } = useAppContext();
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const handleCheckboxChange = e => {
+    e.stopPropagation();
+    if (!checked) {
+      let newCheckedIds = checkedIds;
+      newCheckedIds.push(item.id);
+      setCheckedIds(newCheckedIds);
+    } else {
+      let newCheckedIds = checkedIds;
+      newCheckedIds.filter(id => id !== item.id);
+      setCheckedIds(newCheckedIds);
+    }
     setChecked(!checked);
   };
+
+  useEffect(() => {
+    console.log("ran");
+    if (checkedIds.includes(item.id)) {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  }, [checkedIds]);
+
   return (
     <div
       onClick={handleCheckboxChange}
@@ -18,7 +40,8 @@ export default function PasswordItem(item) {
         <input
           type="checkbox"
           checked={checked}
-          onChange={handleCheckboxChange}
+          onChange={() => {}}
+          // onChange={handleCheckboxChange}
         ></input>
       </div>
       <div className="col-span-1">

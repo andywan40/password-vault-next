@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { TrashIcon } from "@heroicons/react/outline";
+import { useAppContext } from "../pages/_app";
 
 export default function DashboardMenu() {
+  const { checkedIds, setCheckedIds, passwords } = useAppContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
@@ -14,10 +15,16 @@ export default function DashboardMenu() {
   };
 
   const handleSelectAll = () => {
+    let newCheckedIds = [];
+    passwords.forEach(password => {
+      newCheckedIds.push(password.id);
+    });
+    setCheckedIds(newCheckedIds);
     handleClose();
   };
 
   const handleUnselectAll = () => {
+    setCheckedIds([]);
     handleClose();
   };
 

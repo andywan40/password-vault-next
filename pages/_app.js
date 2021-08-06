@@ -27,6 +27,7 @@ function MyApp({
   const [updateCount, setUpdateCount] = useState(0);
   const [passwords, setPasswords] = useState([]);
   const [type, setType] = useState("all");
+  const [checkedIds, setCheckedIds] = useState([]);
   const router = useRouter();
   const protectedRoutes = ["/dashboard"];
 
@@ -69,6 +70,8 @@ function MyApp({
           setPasswords,
           type,
           setType,
+          checkedIds,
+          setCheckedIds,
         }}
       >
         <AuthorizedRoute protectedRoutes={protectedRoutes}>
