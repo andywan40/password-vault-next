@@ -23,7 +23,6 @@ export default function PasswordItem(item) {
   };
 
   useEffect(() => {
-    console.log("ran");
     if (checkedIds.includes(item.id)) {
       setChecked(true);
     } else {

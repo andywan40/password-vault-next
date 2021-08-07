@@ -2,8 +2,6 @@ import "../styles/globals.css";
 import { createContext, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { CookiesProvider } from "react-cookie";
-// import Cookie from "js-cookie";
-// import { parseCookies } from "../helpers";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AuthorizedRoute from "../components/AuthorizedRoute";
@@ -14,13 +12,7 @@ export function useAppContext() {
   return useContext(AppContext);
 }
 
-function MyApp({
-  Component,
-  pageProps,
-  // initialUsernameValue,
-  // initialTokenValue,
-  // initialShowMenuValue,
-}) {
+function MyApp({ Component, pageProps }) {
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
@@ -41,18 +33,6 @@ function MyApp({
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, []);
-
-  // useEffect(() => {
-  //   Cookie.set("pv-username", username);
-  // }, [username]);
-
-  // useEffect(() => {
-  //   Cookie.set("pv-token", token);
-  // }, [token]);
-
-  // useEffect(() => {
-  //   Cookie.set("pv-showMenu", showMenu);
-  // }, [showMenu]);
 
   return (
     <CookiesProvider>

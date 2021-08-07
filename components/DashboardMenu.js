@@ -1,11 +1,19 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useAppContext } from "../pages/_app";
 
 export default function DashboardMenu() {
-  const { checkedIds, setCheckedIds, passwords } = useAppContext();
+  const {
+    checkedIds,
+    setCheckedIds,
+    passwords,
+    token,
+    setUpdateCount,
+    updateCount,
+  } = useAppContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
@@ -29,6 +37,29 @@ export default function DashboardMenu() {
   };
 
   const handleDeleteSelected = () => {
+    if (checkedIds.length === 0) {
+      handleClose();
+      return false;
+    }
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Token " + token,
+    };
+    axios
+      .post(
+        `http://localhost:8000/api/passwords/destroymultiple/`,
+        { ids: checkedIds },
+        {
+          headers,
+        }
+      )
+      .then(res => {
+        console.log(res);
+        setUpdateCount(() => updateCount + 1);
+      })
+      .catch(e => {
+        console.log(e);
+      });
     handleClose();
   };
 
