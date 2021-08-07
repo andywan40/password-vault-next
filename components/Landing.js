@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useAppContext } from "../pages/_app";
 export default function Landing() {
   const { token, username } = useAppContext();
-  console.log(token, username);
   return (
     <section id="about" className="mb-10">
       <div className="grid grid-cols-12 mt-10">

@@ -13,6 +13,7 @@ export function useAppContext() {
 }
 
 function MyApp({ Component, pageProps }) {
+  const [mounted, setMounted] = useState(false);
   const [cookie] = useCookies(["token", "username"]);
   const [username, setUsername] = useState(cookie["username"] || null);
   const [token, setToken] = useState(cookie["token"] || null);
@@ -30,53 +31,43 @@ function MyApp({ Component, pageProps }) {
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
+    setMounted(true);
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, []);
 
   return (
-    <CookiesProvider>
-      <AppContext.Provider
-        value={{
-          showMenu,
-          setShowMenu,
-          username,
-          setUsername,
-          token,
-          setToken,
-          updateCount,
-          setUpdateCount,
-          passwords,
-          setPasswords,
-          type,
-          setType,
-          checkedIds,
-          setCheckedIds,
-        }}
-      >
-        <AuthorizedRoute protectedRoutes={protectedRoutes}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </AuthorizedRoute>
-      </AppContext.Provider>
-    </CookiesProvider>
+    mounted && (
+      <CookiesProvider>
+        <AppContext.Provider
+          value={{
+            showMenu,
+            setShowMenu,
+            username,
+            setUsername,
+            token,
+            setToken,
+            updateCount,
+            setUpdateCount,
+            passwords,
+            setPasswords,
+            type,
+            setType,
+            checkedIds,
+            setCheckedIds,
+          }}
+        >
+          <AuthorizedRoute protectedRoutes={protectedRoutes}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </AuthorizedRoute>
+        </AppContext.Provider>
+      </CookiesProvider>
+    )
   );
 }
 
 export default MyApp;
-
-MyApp.getInitialProps = async ({ req, res }) => {
-  const isServer = !!req;
-  const isBrowser = !req;
-  let data = {};
-  if (isServer) {
-  } else if (isBrowser) {
-  }
-
-  return {
-    data: {},
-  };
-};
