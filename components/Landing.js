@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { useAppContext } from "../pages/_app";
 export default function Landing() {
+  const { token, username } = useAppContext();
+  console.log(token, username);
   return (
     <section id="about" className="mb-10">
       <div className="grid grid-cols-12 mt-10">
@@ -13,10 +16,10 @@ export default function Landing() {
               personal and sensitive data.
             </h6>
             <div className="mt-8">
-              <Link href="/signup">
+              <Link href={token && username ? "/dashboard" : "/signup"}>
                 <a>
                   <button className="font-content sm:ml-0 ml-2 sm:px-2 sm:py-1 px-4 py-3 md:text-base text-xl border-indigo-600 border-2 rounded-md bg-indigo-500 hover:bg-indigo-700 text-white uppercase">
-                    Get Started
+                    {token && username ? "Dashboard" : "Get Started"}
                   </button>
                 </a>
               </Link>

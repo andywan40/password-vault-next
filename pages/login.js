@@ -11,7 +11,7 @@ import Loader from "../components/Loader";
 export default function Login() {
   const router = useRouter();
   const { username, setUsername, token, setToken } = useAppContext();
-  const [setCookie] = useCookies(["token", "username"]);
+  const [cookie, setCookie] = useCookies(["token", "username"]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
