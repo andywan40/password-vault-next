@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { createContext, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { CookiesProvider } from "react-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AuthorizedRoute from "../components/AuthorizedRoute";
@@ -13,8 +13,9 @@ export function useAppContext() {
 }
 
 function MyApp({ Component, pageProps }) {
-  const [username, setUsername] = useState(null);
-  const [token, setToken] = useState(null);
+  const [cookie] = useCookies(["token", "username"]);
+  const [username, setUsername] = useState(cookie["username"] || null);
+  const [token, setToken] = useState(cookie["token"] || null);
   const [showMenu, setShowMenu] = useState(false);
   const [updateCount, setUpdateCount] = useState(0);
   const [passwords, setPasswords] = useState([]);
@@ -66,3 +67,16 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+MyApp.getInitialProps = async ({ req, res }) => {
+  const isServer = !!req;
+  const isBrowser = !req;
+  let data = {};
+  if (isServer) {
+  } else if (isBrowser) {
+  }
+
+  return {
+    data: {},
+  };
+};

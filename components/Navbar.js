@@ -11,13 +11,10 @@ import whiteLogo from "../public/white_logo.png";
 export default function Navbar() {
   const router = useRouter();
   const { pathname } = router;
-  const [cookie, setCookie, removeCookie] = useCookies(["userToken"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["token", "username"]);
   const { showMenu, setShowMenu, username, setUsername, token, setToken } =
     useAppContext();
   const handleLogout = () => {
-    removeCookie(["userToken"]);
-    setToken(null);
-    setUsername(null);
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`,
@@ -32,7 +29,7 @@ export default function Navbar() {
       )
       .then(res => {
         console.log(res);
-        removeCookie(["userToken"]);
+        removeCookie(["token", "username"]);
         setUsername(null);
         setToken(null);
         router.push("/login");

@@ -6,18 +6,19 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useAppContext } from "../pages/_app";
 import Page from "../components/Page";
+import Loader from "../components/Loader";
 
 export default function Login() {
   const router = useRouter();
   const { username, setUsername, token, setToken } = useAppContext();
-  const [cookie, setCookie] = useCookies(["userToken"]);
+  const [setCookie] = useCookies(["token", "username"]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (cookie["userToken"] && token && username) {
+    if (token && username) {
       router.push("/dashboard");
     }
-  }, [cookie, token, username]);
+  }, []);
 
   const {
     register,
@@ -37,11 +38,13 @@ export default function Login() {
       })
       .then(res => {
         console.log(res);
-        //set Cookie
-        setCookie("userToken", res.data.token);
+        //set token
+        setCookie("token", res.data.token);
         setToken(res.data.token);
-        //set username and redirect to dashboard
+        //set username
+        setCookie("username", res.data.username);
         setUsername(res.data.username);
+        //route to dashboard
         router.push("/dashboard");
       })
       .catch(e => {
@@ -49,6 +52,10 @@ export default function Login() {
         console.log(e);
       });
   };
+
+  if (token && username) {
+    return <Loader />;
+  }
 
   return (
     <Page>

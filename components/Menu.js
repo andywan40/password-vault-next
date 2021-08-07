@@ -7,10 +7,10 @@ export default function Menu() {
   const router = useRouter();
   const { pathname } = router;
   const { username, setUsername, token, setToken } = useAppContext();
-  const [cookie, setCookie, removeCookie] = useCookies(["userToken"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["token"]);
 
   const handleLogout = () => {
-    removeCookie(["userToken"]);
+    removeCookie(["token"]);
     setToken(null);
     setUsername(null);
     const headers = {
@@ -27,7 +27,7 @@ export default function Menu() {
       )
       .then(res => {
         console.log(res);
-        removeCookie(["userToken"]);
+        removeCookie(["token", "username"]);
         setUsername(null);
         setToken(null);
         router.push("/login");
