@@ -29,7 +29,8 @@ export default function Navbar() {
       )
       .then(res => {
         console.log(res);
-        removeCookie(["token", "username"]);
+        removeCookie("token");
+        removeCookie("username");
         setUsername(null);
         setToken(null);
         router.push("/login");

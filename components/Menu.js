@@ -10,9 +10,6 @@ export default function Menu() {
   const [cookie, setCookie, removeCookie] = useCookies(["token"]);
 
   const handleLogout = () => {
-    removeCookie(["token"]);
-    setToken(null);
-    setUsername(null);
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`,
@@ -27,7 +24,8 @@ export default function Menu() {
       )
       .then(res => {
         console.log(res);
-        removeCookie(["token", "username"]);
+        removeCookie("token");
+        removeCookie("username");
         setUsername(null);
         setToken(null);
         router.push("/login");

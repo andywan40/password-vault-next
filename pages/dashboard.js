@@ -9,7 +9,6 @@ import PasswordItemList from "../components/PasswordItemList";
 
 export default function Dashboard() {
   const { token, updateCount, passwords, setPasswords, type } = useAppContext();
-  // const [passwords, setPasswords] = useState([]);
   const [open, setOpen] = useState(false);
   const item = {
     name: "",

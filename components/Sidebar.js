@@ -55,7 +55,7 @@ export default function Sidebar() {
           </svg>
           <span className="pl-2">Favorites</span>
         </div>
-        <div
+        {/* <div
           onClick={getDeletedItems}
           className="w-full p-2 px-3 font-content uppercase flex cursor-pointer hover:bg-gray-100 hover:underline"
         >
@@ -72,7 +72,7 @@ export default function Sidebar() {
             />
           </svg>
           <span className="pl-2">Trash</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
