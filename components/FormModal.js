@@ -117,7 +117,6 @@ export default function FormModal({ open, setOpen, item, mode }) {
             setUpdateCount(() => updateCount + 1);
             //close form
             handleClose();
-            setOpenToast(true);
           } else {
             alert("Failed");
           }
