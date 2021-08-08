@@ -10,6 +10,7 @@ import PasswordItemList from "../components/PasswordItemList";
 export default function Dashboard() {
   const { token, updateCount, passwords, setPasswords, type } = useAppContext();
   const [open, setOpen] = useState(false);
+
   const item = {
     name: "",
     description: "",
@@ -45,7 +46,7 @@ export default function Dashboard() {
         <Sidebar />
         <div className="md:col-start-1 md:col-span-12 col-span-9 px-5">
           <div className="flex justify-between mb-3 pb-2 border-b">
-            <h1 className="text-black lg:text-xl text-2xl font-content uppercase px-5 inline-block">
+            <h1 className="text-black xs:text-lg lg:text-xl text-2xl font-content uppercase px-5 inline-block">
               My Vault
             </h1>
             <div className="flex items-center justify-center">
@@ -56,7 +57,7 @@ export default function Dashboard() {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
+                  className="h-5 w-5 xs:hidden"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -66,7 +67,7 @@ export default function Dashboard() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <p className="uppercase">Add Item</p>
+                <p className="uppercase xs:text-xs">Add Item</p>
               </button>
             </div>
           </div>

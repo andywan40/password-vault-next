@@ -45,6 +45,7 @@ module.exports = {
         xxs: { max: "376px" },
       },
       fontSize: {
+        xxs: "0.5rem",
         "2xl": "2rem",
         "3xl": "3rem",
         "4xl": "4rem",

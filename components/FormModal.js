@@ -117,6 +117,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
             setUpdateCount(() => updateCount + 1);
             //close form
             handleClose();
+            setOpenToast(true);
           } else {
             alert("Failed");
           }
@@ -263,10 +264,18 @@ export default function FormModal({ open, setOpen, item, mode }) {
             Password
           </label>
           <label
-            className="leading-7 text-base text-white font-content bg-gray-600 rounded-sm px-1 cursor-pointer"
+            className="text-base text-white font-content bg-gray-600 rounded-sm px-1 cursor-pointer mb-1 xs:text-sm"
             onClick={generateRandomPassword}
           >
-            Random
+            Random{" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 inline-block xs:h-4 xs:w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+            </svg>
           </label>
         </div>
         <div className="relative w-full">
@@ -374,22 +383,22 @@ export default function FormModal({ open, setOpen, item, mode }) {
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </div>
-      <div className="mt-2 pb-5 flex justify-between col-span-12 px-2">
-        <div>
+      <div className="mt-2 pb-5 flex justify-between col-span-12 px-2 xs:grid xs:grid-cols-12">
+        <div className="xs:col-span-12 flex justify-between xs:mb-2">
           <button
             onClick={handleSaveBtnClick}
-            className="font-content h-full text-lg rounded-md mx-1 px-2 bg-indigo-600 hover:bg-indigo-700 text-white"
+            className="font-content h-full xs:text-sm text-lg rounded-md mx-1 px-2 bg-indigo-600 hover:bg-indigo-700 text-white"
           >
             Save
           </button>
           <button
             onClick={handleCancel}
-            className="h-full text-lg rounded-md mx-1 px-2 bg-white hover:bg-indigo-700 text-gray-600 border border-gray-600 hover:bg-gray-300 hover:text-gray-800"
+            className="font-content h-full xs:text-sm text-lg rounded-md mx-1 px-2 bg-white hover:bg-indigo-700 text-gray-600 border border-gray-600 hover:bg-gray-300 hover:text-gray-800"
           >
             Cancel
           </button>
         </div>
-        <div>
+        <div className="xs:col-span-12 flex justify-between">
           <button
             onClick={toggleFavorite}
             className={
