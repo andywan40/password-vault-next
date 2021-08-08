@@ -156,6 +156,14 @@ export default function FormModal({ open, setOpen, item, mode }) {
     }
   };
 
+  const generateRandomPassword = e => {
+    const randomPassword = Math.random().toString(36).substr(2, 8);
+    setFormData({
+      ...formData,
+      password: randomPassword,
+    });
+  };
+
   const toggleFavorite = e => {
     setFormData({
       ...formData,
@@ -247,12 +255,20 @@ export default function FormModal({ open, setOpen, item, mode }) {
         />
       </div>
       <div className="md:col-span-12 col-span-6 p-2">
-        <label
-          htmlFor="password"
-          className="leading-7 text-base text-gray-600 font-content"
-        >
-          Password
-        </label>
+        <div className="flex justify-between">
+          <label
+            htmlFor="password"
+            className="leading-7 text-base text-gray-600 font-content"
+          >
+            Password
+          </label>
+          <label
+            className="leading-7 text-base text-white font-content bg-gray-600 rounded-sm px-1 cursor-pointer"
+            onClick={generateRandomPassword}
+          >
+            Random
+          </label>
+        </div>
         <div className="relative w-full">
           <input
             type={showPassword ? "text" : "password"}
