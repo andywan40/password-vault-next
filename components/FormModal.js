@@ -16,6 +16,13 @@ function getModalStyle() {
 export default function FormModal({ open, setOpen, item, mode }) {
   const { token, updateCount, setUpdateCount } = useAppContext();
   const [modalStyle] = useState(getModalStyle);
+  const [showPassword, setShowPassword] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    website: "",
+  });
   const [formData, setFormData] = useState({
     name: item.name,
     description: item.description,
@@ -34,9 +41,15 @@ export default function FormModal({ open, setOpen, item, mode }) {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    if (submitted) handleValidation();
   };
 
   const handleClose = () => {
+    setErrors({
+      name: "",
+      email: "",
+      website: "",
+    });
     setOpen(false);
   };
 
@@ -49,7 +62,42 @@ export default function FormModal({ open, setOpen, item, mode }) {
     handleClose();
   };
 
+  const handleValidation = () => {
+    let nameError = false;
+    let emailError = false;
+    let websiteError = false;
+    //name
+    if (!formData.name) {
+      nameError = true;
+    }
+    //email
+    const emailPattern =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (formData.email && !formData.email.match(emailPattern)) {
+      emailError = true;
+    }
+    //website
+    const websitePattern =
+      /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    if (formData.website && !formData.website.match(websitePattern)) {
+      websiteError = true;
+    }
+
+    setErrors({
+      name: nameError ? "Name is Required" : "",
+      email: emailError ? "Please Enter a Valid Email" : "",
+      website: websiteError ? "Please Enter a Valid Website" : "",
+    });
+
+    return nameError || emailError || websiteError;
+  };
+
   const handleSaveBtnClick = e => {
+    setSubmitted(true);
+    //validation
+    const hasError = handleValidation();
+    if (hasError) return false;
+    //update password item
     if (mode === "update") {
       const headers = {
         "Content-Type": "application/json",
@@ -77,6 +125,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
           console.log(e);
           alert("Something went wrong, please try again later!");
         });
+      //add new password item
     } else if (mode === "add") {
       const headers = {
         "Content-Type": "application/json",
@@ -141,7 +190,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
       style={modalStyle}
       className="relative w-4/6 border p-5 bg-white grid grid-cols-12 max-h-85vh overflow-y-scroll"
     >
-      <div className="col-span-6 p-2">
+      <div className="md:col-span-12 col-span-6 p-2">
         <label
           htmlFor="name"
           className="leading-7 text-base text-gray-600 font-content"
@@ -152,12 +201,18 @@ export default function FormModal({ open, setOpen, item, mode }) {
           type="text"
           id="name"
           name="name"
+          autoComplete="off"
           value={formData.name}
           onChange={handleChange}
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
+        {errors.name && (
+          <span className="text-red-500" role="alert">
+            {errors.name}
+          </span>
+        )}
       </div>
-      <div className="col-span-6 p-2">
+      <div className="md:col-span-12 col-span-6 p-2">
         <label
           htmlFor="description"
           className="leading-7 text-base text-gray-600 font-content"
@@ -168,12 +223,13 @@ export default function FormModal({ open, setOpen, item, mode }) {
           type="text"
           id="description"
           name="description"
+          autoComplete="off"
           value={formData.description}
           onChange={handleChange}
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </div>
-      <div className="col-span-6 p-2">
+      <div className="md:col-span-12 col-span-6 p-2">
         <label
           htmlFor="username"
           className="leading-7 text-base text-gray-600 font-content"
@@ -184,28 +240,64 @@ export default function FormModal({ open, setOpen, item, mode }) {
           type="text"
           id="username"
           name="username"
+          autoComplete="off"
           value={formData.username}
           onChange={handleChange}
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </div>
-      <div className="col-span-6 p-2">
+      <div className="md:col-span-12 col-span-6 p-2">
         <label
           htmlFor="password"
           className="leading-7 text-base text-gray-600 font-content"
         >
           Password
         </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        />
+        <div className="relative w-full">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            name="password"
+            autoComplete="off"
+            value={formData.password}
+            onChange={handleChange}
+            className="block w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
+          <div onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 password-label rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer absolute"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z"
+                  clipRule="evenodd"
+                />
+                <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 password-label rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer absolute"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path
+                  fillRule="evenodd"
+                  d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="col-span-6 p-2">
+
+      <div className="md:col-span-12 col-span-6 p-2">
         <label
           htmlFor="website"
           className="leading-7 text-base text-gray-600 font-content"
@@ -216,12 +308,18 @@ export default function FormModal({ open, setOpen, item, mode }) {
           type="text"
           id="email"
           name="email"
+          autoComplete="off"
           value={formData.email}
           onChange={handleChange}
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
+        {errors.email && (
+          <span className="text-red-500" role="alert">
+            {errors.email}
+          </span>
+        )}
       </div>
-      <div className="col-span-6 p-2">
+      <div className="md:col-span-12 col-span-6 p-2">
         <label
           htmlFor="website"
           className="leading-7 text-base text-gray-600 font-content"
@@ -232,12 +330,18 @@ export default function FormModal({ open, setOpen, item, mode }) {
           type="text"
           id="website"
           name="website"
+          autoComplete="off"
           value={formData.website}
           onChange={handleChange}
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
+        {errors.website && (
+          <span className="text-red-500" role="alert">
+            {errors.website}
+          </span>
+        )}
       </div>
-      <div className="col-span-12 p-2">
+      <div className="md:col-span-12 col-span-12 p-2">
         <label
           htmlFor="notes"
           className="leading-7 text-base text-gray-600 font-content"
@@ -254,7 +358,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </div>
-      <div className="mt-2 flex justify-between col-span-12 px-2">
+      <div className="mt-2 pb-5 flex justify-between col-span-12 px-2">
         <div>
           <button
             onClick={handleSaveBtnClick}

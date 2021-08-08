@@ -122,3 +122,8 @@
 .icon {
   margin: 0 !important;
 }
+
+.password-label {
+  top: 8px;
+  right: 5px;
+}

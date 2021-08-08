@@ -33,7 +33,6 @@ export default function Login() {
     };
     axios
       .post("http://localhost:8000/api/accounts/login/", data, {
-        //withCredentials: true,
         headers: headers,
       })
       .then(res => {
@@ -67,7 +66,6 @@ export default function Login() {
           <h2 className="text-indigo-600 xs:text-1xl sm:text-2xl text-3xl mb-2 font-medium font-title">
             Log In
           </h2>
-          {/* <p className="leading-relaxed mb-5 font-content">How can I help?</p> */}
           <div className="relative mb-4">
             <label
               htmlFor="username"
