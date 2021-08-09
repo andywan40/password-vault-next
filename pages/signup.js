@@ -17,7 +17,10 @@ export default function Login() {
 
   const onSubmit = data => {
     axios
-      .post("http://127.0.0.1:8000/api/accounts/register/", data)
+      .post(
+        "https://password-vault-django.herokuapp.com/api/accounts/register/",
+        data
+      )
       .then(res => {
         if (res.data.status === "success") {
           router.push("/login");
