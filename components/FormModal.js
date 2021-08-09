@@ -104,9 +104,13 @@ export default function FormModal({ open, setOpen, item, mode }) {
         Authorization: "Token " + token,
       };
       axios
-        .put(`http://localhost:8000/api/passwords/${item.id}/`, formData, {
-          headers,
-        })
+        .put(
+          `https://password-vault-django.herokuapp.com/api/passwords/${item.id}/`,
+          formData,
+          {
+            headers,
+          }
+        )
         .then(res => {
           console.log(res);
           if (res.data.status === 200) {
@@ -132,9 +136,13 @@ export default function FormModal({ open, setOpen, item, mode }) {
         Authorization: "Token " + token,
       };
       axios
-        .post(`http://localhost:8000/api/passwords/`, formData, {
-          headers,
-        })
+        .post(
+          `https://password-vault-django.herokuapp.com/api/passwords/`,
+          formData,
+          {
+            headers,
+          }
+        )
         .then(res => {
           console.log(res);
           if (res.data.status === 201) {
@@ -177,9 +185,12 @@ export default function FormModal({ open, setOpen, item, mode }) {
       Authorization: "Token " + token,
     };
     axios
-      .delete(`http://localhost:8000/api/passwords/${item.id}/`, {
-        headers,
-      })
+      .delete(
+        `https://password-vault-django.herokuapp.com/api/passwords/${item.id}/`,
+        {
+          headers,
+        }
+      )
       .then(res => {
         console.log(res);
         //trigger dashboard to fetch new data

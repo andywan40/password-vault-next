@@ -32,9 +32,13 @@ export default function Login() {
       "Content-Type": "application/json",
     };
     axios
-      .post("http://localhost:8000/api/accounts/login/", data, {
-        headers: headers,
-      })
+      .post(
+        "https://password-vault-django.herokuapp.com/api/accounts/login/",
+        data,
+        {
+          headers: headers,
+        }
+      )
       .then(res => {
         console.log(res);
         //set token

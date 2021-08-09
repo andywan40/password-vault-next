@@ -24,9 +24,12 @@ export default function PasswordItemMenu(item) {
       Authorization: "Token " + token,
     };
     axios
-      .delete(`http://localhost:8000/api/passwords/${item.id}/`, {
-        headers,
-      })
+      .delete(
+        `https://password-vault-django.herokuapp.com/api/passwords/${item.id}/`,
+        {
+          headers,
+        }
+      )
       .then(res => {
         console.log(res);
         //trigger dashboard to fetch new data

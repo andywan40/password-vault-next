@@ -16,7 +16,7 @@ export default function Menu() {
     };
     axios
       .post(
-        "http://localhost:8000/api/accounts/logout/",
+        "https://password-vault-django.herokuapp.com/api/accounts/logout/",
         {},
         {
           headers,

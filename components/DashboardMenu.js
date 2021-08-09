@@ -47,7 +47,7 @@ export default function DashboardMenu() {
     };
     axios
       .post(
-        `http://localhost:8000/api/passwords/destroymultiple/`,
+        `https://password-vault-django.herokuapp.com/api/passwords/destroymultiple/`,
         { ids: checkedIds },
         {
           headers,

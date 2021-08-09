@@ -28,9 +28,12 @@ export default function Dashboard() {
       Authorization: "Token " + token,
     };
     axios
-      .get(`http://localhost:8000/api/passwords/?type=${type}`, {
-        headers,
-      })
+      .get(
+        `https://password-vault-django.herokuapp.com/api/passwords/?type=${type}`,
+        {
+          headers,
+        }
+      )
       .then(res => {
         console.log(res);
         setPasswords(res.data);
