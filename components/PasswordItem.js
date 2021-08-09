@@ -44,7 +44,7 @@ export default function PasswordItem(item) {
       </div>
       <div className="col-span-1 flex justify-center">
         <img
-          className="xxs:hidden w-1/4 h-1/4"
+          className="xxs:w-1/2 xxs:h-1/2 w-1/4 h-1/4"
           src={`https://www.google.com/s2/favicons?domain=${
             item.website.split("https://")[1]
           }`}
