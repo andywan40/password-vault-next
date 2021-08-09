@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { GlobeIcon } from "@heroicons/react/solid";
 import { useAppContext } from "../pages/_app";
 import PasswordItemMenu from "./PasswordItemMenu";
 import FormModal from "./FormModal";
