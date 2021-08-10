@@ -214,7 +214,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
           htmlFor="name"
           className="leading-7 text-base text-gray-600 font-content"
         >
-          Name
+          Name*
         </label>
         <input
           type="text"

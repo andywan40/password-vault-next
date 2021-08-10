@@ -32,6 +32,7 @@ export default function PasswordItemMenu(item) {
       )
       .then(res => {
         console.log(res);
+        handleClose(e);
         //trigger dashboard to fetch new data
         setUpdateCount(() => updateCount + 1);
       })

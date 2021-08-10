@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -11,10 +12,12 @@ import whiteLogo from "../public/white_logo.png";
 export default function Navbar() {
   const router = useRouter();
   const { pathname } = router;
+  const [isLoading, setIsLoading] = useState(false);
   const [cookie, setCookie, removeCookie] = useCookies(["token", "username"]);
   const { showMenu, setShowMenu, username, setUsername, token, setToken } =
     useAppContext();
   const handleLogout = () => {
+    setIsLoading(true);
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`,
@@ -33,13 +36,21 @@ export default function Navbar() {
         removeCookie("username");
         setUsername(null);
         setToken(null);
-        router.push("/login");
       })
       .catch(e => {
         console.log(e);
-        alert("something went wrong. try again later");
+        setIsLoading(false);
+        alert("Something went wrong. Try again later");
       });
   };
+
+  useEffect(() => {
+    if (!username && !token) {
+      setIsLoading(false);
+      router.push("/login");
+    }
+  }, [username, token]);
+
   return (
     <header
       className={
@@ -100,7 +111,7 @@ export default function Navbar() {
                   className="md:hidden mr-5 text-black uppercase strike cursor-pointer"
                   onClick={handleLogout}
                 >
-                  Log out
+                  {isLoading ? "Logging out..." : "Log out"}
                 </p>
               )}
             </>

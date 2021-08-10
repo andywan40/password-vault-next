@@ -13,6 +13,7 @@ export default function Login() {
   const { username, setUsername, token, setToken } = useAppContext();
   const [cookie, setCookie] = useCookies(["token", "username"]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (token && username) {
@@ -28,6 +29,7 @@ export default function Login() {
 
   const onSubmit = data => {
     //login
+    setIsLoading(true);
     const headers = {
       "Content-Type": "application/json",
     };
@@ -47,10 +49,12 @@ export default function Login() {
         //set username
         setCookie("username", res.data.username);
         setUsername(res.data.username);
+        setIsLoading(false);
         //route to dashboard
         router.push("/dashboard");
       })
       .catch(e => {
+        setIsLoading(false);
         setError("Invalid Credentials");
         console.log(e);
       });
@@ -123,7 +127,7 @@ export default function Login() {
             type="submit"
             className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg font-title tracking-widest"
           >
-            Log In
+            {isLoading ? "Loading..." : "Log In"}
           </button>
           <p className="p-1">
             Don't have an account yet?{" "}

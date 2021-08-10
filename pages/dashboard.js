@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { useAppContext } from "../pages/_app";
 import Page from "../components/Page";
 import FormModal from "../components/FormModal";
@@ -10,6 +11,7 @@ import PasswordItemList from "../components/PasswordItemList";
 export default function Dashboard() {
   const { token, updateCount, passwords, setPasswords, type } = useAppContext();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const item = {
     name: "",
@@ -23,6 +25,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Token " + token,
@@ -37,9 +40,11 @@ export default function Dashboard() {
       .then(res => {
         console.log(res);
         setPasswords(res.data);
+        setIsLoading(false);
       })
       .catch(e => {
         console.log(e);
+        setIsLoading(false);
       });
   }, [updateCount, type]);
 
@@ -74,7 +79,13 @@ export default function Dashboard() {
               </button>
             </div>
           </div>
-          <PasswordItemList passwords={passwords} />
+          {isLoading ? (
+            <div className="flex justify-center items-center h-full w-full">
+              <CircularProgress className="text-indigo-600" />
+            </div>
+          ) : (
+            <PasswordItemList passwords={passwords} />
+          )}
         </div>
         <FormModal
           open={open}

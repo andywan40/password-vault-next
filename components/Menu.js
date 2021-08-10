@@ -6,7 +6,8 @@ import axios from "axios";
 export default function Menu() {
   const router = useRouter();
   const { pathname } = router;
-  const { username, setUsername, token, setToken } = useAppContext();
+  const { username, setUsername, token, setToken, setShowMenu } =
+    useAppContext();
   const [cookie, setCookie, removeCookie] = useCookies(["token"]);
 
   const handleLogout = () => {
@@ -28,6 +29,7 @@ export default function Menu() {
         removeCookie("username");
         setUsername(null);
         setToken(null);
+        setShowMenu(false);
         router.push("/login");
       })
       .catch(e => {

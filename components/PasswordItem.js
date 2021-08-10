@@ -42,9 +42,9 @@ export default function PasswordItem(item) {
           // onChange={handleCheckboxChange}
         ></input>
       </div>
-      <div className="col-span-1 flex justify-center">
+      <div className="col-span-1 flex justify-center items-center">
         <img
-          className="xxs:w-1/2 xxs:h-1/2 w-1/4 h-1/4"
+          className="xxs:w-3/4 xxs:h-3/4 md:w-1/2 md:h-1/2 w-1/4 h-1/4"
           src={`https://www.google.com/s2/favicons?domain=${
             item.website.split("https://")[1]
           }`}
