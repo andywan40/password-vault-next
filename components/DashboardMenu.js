@@ -32,7 +32,9 @@ export default function DashboardMenu() {
   };
 
   const handleUnselectAll = () => {
-    setCheckedIds([]);
+    let passwordIds = passwords.map(password => password.id);
+    let newCheckedIds = checkedIds.filter(id => !passwordIds.includes(id));
+    setCheckedIds(newCheckedIds);
     handleClose();
   };
 
