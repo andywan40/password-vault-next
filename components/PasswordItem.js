@@ -14,8 +14,7 @@ export default function PasswordItem(item) {
       newCheckedIds.push(item.id);
       setCheckedIds(newCheckedIds);
     } else {
-      let newCheckedIds = checkedIds;
-      newCheckedIds.filter(id => id !== item.id);
+      let newCheckedIds = checkedIds.filter(id => id !== item.id);
       setCheckedIds(newCheckedIds);
     }
     setChecked(!checked);
@@ -29,6 +28,7 @@ export default function PasswordItem(item) {
     }
   }, [checkedIds]);
 
+  const handleChange = e => {};
   return (
     <div
       onClick={handleCheckboxChange}
@@ -38,8 +38,7 @@ export default function PasswordItem(item) {
         <input
           type="checkbox"
           checked={checked}
-          onChange={() => {}}
-          // onChange={handleCheckboxChange}
+          onChange={handleChange}
         ></input>
       </div>
       <div className="col-span-1 flex justify-center items-center">
