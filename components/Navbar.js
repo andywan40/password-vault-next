@@ -45,7 +45,7 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    if (!username && !token) {
+    if (isLoading && !username && !token) {
       setIsLoading(false);
       router.push("/login");
     }
