@@ -125,6 +125,7 @@ export default function Login() {
           </span>
           <button
             type="submit"
+            disabled={isLoading}
             className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg font-title tracking-widest"
           >
             {isLoading ? "Loading..." : "Log In"}

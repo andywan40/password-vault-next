@@ -43,15 +43,16 @@ export default function PasswordItemMenu(item) {
   };
 
   const handleLaunch = e => {
+    handleClose(e);
     window.open(item.website);
   };
   const copyUsername = e => {
-    navigator.clipboard.writeText(item.username);
     handleClose(e);
+    navigator.clipboard.writeText(item.username);
   };
   const copyPassword = e => {
-    navigator.clipboard.writeText(item.password);
     handleClose(e);
+    navigator.clipboard.writeText(item.password);
   };
   const toggleFavorite = e => {
     handleClose(e);
@@ -77,7 +78,7 @@ export default function PasswordItemMenu(item) {
           //trigger dashboard to fetch new data
           setUpdateCount(() => updateCount + 1);
         } else {
-          alert("Failed");
+          alert("Failed. Please try again.");
         }
       })
       .catch(e => {
@@ -87,7 +88,7 @@ export default function PasswordItemMenu(item) {
   };
 
   return (
-    <div className="font-content">
+    <div className="font-content" onClick={e => e.stopPropagation()}>
       <Button
         aria-controls="dashboard-menu"
         aria-haspopup="true"

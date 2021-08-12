@@ -99,6 +99,8 @@ export default function FormModal({ open, setOpen, item, mode }) {
     //validation
     const hasError = handleValidation();
     if (hasError) return false;
+    //close form
+    handleClose(e);
     //update password item
     if (mode === "update") {
       const headers = {
@@ -116,8 +118,6 @@ export default function FormModal({ open, setOpen, item, mode }) {
         .then(res => {
           console.log(res);
           if (res.data.status === 200) {
-            //close form
-            handleClose(e);
             //set initialFormData to newly saved Form Data
             setInitialFormData(formData);
             setFormData(formData);
@@ -148,8 +148,6 @@ export default function FormModal({ open, setOpen, item, mode }) {
         .then(res => {
           console.log(res);
           if (res.data.status === 201) {
-            //close form
-            handleClose(e);
             //set initialFormData to newly saved Form Data
             setInitialFormData(item);
             setFormData(item);
