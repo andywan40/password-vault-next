@@ -37,6 +37,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
   const [initialFormData, setInitialFormData] = useState(formData);
 
   const handleChange = e => {
+    e.stopPropagation();
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -44,7 +45,8 @@ export default function FormModal({ open, setOpen, item, mode }) {
     if (submitted) handleValidation();
   };
 
-  const handleClose = () => {
+  const handleClose = e => {
+    e.stopPropagation();
     setErrors({
       name: "",
       email: "",
@@ -57,9 +59,9 @@ export default function FormModal({ open, setOpen, item, mode }) {
     setFormData(initialFormData);
   };
 
-  const handleCancel = () => {
+  const handleCancel = e => {
     resetForm();
-    handleClose();
+    handleClose(e);
   };
 
   const handleValidation = () => {
@@ -114,13 +116,13 @@ export default function FormModal({ open, setOpen, item, mode }) {
         .then(res => {
           console.log(res);
           if (res.data.status === 200) {
+            //close form
+            handleClose(e);
             //set initialFormData to newly saved Form Data
             setInitialFormData(formData);
             setFormData(formData);
             //trigger dashboard to fetch new data
             setUpdateCount(() => updateCount + 1);
-            //close form
-            handleClose();
           } else {
             alert("Failed");
           }
@@ -146,13 +148,13 @@ export default function FormModal({ open, setOpen, item, mode }) {
         .then(res => {
           console.log(res);
           if (res.data.status === 201) {
+            //close form
+            handleClose(e);
             //set initialFormData to newly saved Form Data
             setInitialFormData(item);
             setFormData(item);
             //trigger dashboard to fetch new data
             setUpdateCount(() => updateCount + 1);
-            //close form
-            handleClose();
           } else {
             alert("Failed");
           }
@@ -193,10 +195,10 @@ export default function FormModal({ open, setOpen, item, mode }) {
       )
       .then(res => {
         console.log(res);
+        //close form
+        handleClose(e);
         //trigger dashboard to fetch new data
         setUpdateCount(() => updateCount + 1);
-        //close form
-        handleClose();
       })
       .catch(e => {
         console.log(e);
@@ -451,7 +453,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
   );
 
   return (
-    <div>
+    <div onClick={e => e.stopPropagation()}>
       <Modal
         open={open}
         onClose={handleCancel}

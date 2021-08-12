@@ -29,6 +29,12 @@ export default function PasswordItem(item) {
   }, [checkedIds]);
 
   const handleChange = e => {};
+
+  const handleItemNameClick = e => {
+    e.stopPropagation();
+    setOpen(true);
+  };
+
   return (
     <div
       onClick={handleCheckboxChange}
@@ -52,7 +58,7 @@ export default function PasswordItem(item) {
       <div className="col-span-7 text-left px-5">
         <span
           className="hover:underline cursor-pointer text-lg text-indigo-600 font-medium"
-          onClick={() => setOpen(true)}
+          onClick={handleItemNameClick}
         >
           {item.name}
         </span>
