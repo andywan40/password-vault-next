@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "@material-ui/core/Modal";
+import CasinoIcon from "@material-ui/icons/Casino";
 import axios from "axios";
 import { useAppContext } from "../pages/_app";
 
@@ -99,8 +100,6 @@ export default function FormModal({ open, setOpen, item, mode }) {
     //validation
     const hasError = handleValidation();
     if (hasError) return false;
-    //close form
-    handleClose(e);
     //update password item
     if (mode === "update") {
       const headers = {
@@ -118,6 +117,8 @@ export default function FormModal({ open, setOpen, item, mode }) {
         .then(res => {
           console.log(res);
           if (res.data.status === 200) {
+            //close form
+            handleClose(e);
             //set initialFormData to newly saved Form Data
             setInitialFormData(formData);
             setFormData(formData);
@@ -148,6 +149,8 @@ export default function FormModal({ open, setOpen, item, mode }) {
         .then(res => {
           console.log(res);
           if (res.data.status === 201) {
+            //close form
+            handleClose(e);
             //set initialFormData to newly saved Form Data
             setInitialFormData(item);
             setFormData(item);
@@ -202,6 +205,10 @@ export default function FormModal({ open, setOpen, item, mode }) {
         console.log(e);
         alert("Something went wrong, please try again later!");
       });
+  };
+
+  const copyPassword = e => {
+    navigator.clipboard.writeText(formData.password);
   };
 
   const body = (
@@ -277,15 +284,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
             className="text-base text-white font-content bg-gray-600 rounded-sm px-1 cursor-pointer mb-1 xs:text-sm"
             onClick={generateRandomPassword}
           >
-            Random{" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 inline-block xs:h-4 xs:w-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-            </svg>
+            Random <CasinoIcon />
           </label>
         </div>
         <div className="relative w-full">
@@ -302,7 +301,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
             {showPassword ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 password-label rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer absolute"
+                className="h-8 w-8 password-label rounded px-2 py-1 text-sm text-white font-mono cursor-pointer absolute"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -316,7 +315,7 @@ export default function FormModal({ open, setOpen, item, mode }) {
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 password-label rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer absolute"
+                className="h-8 w-8 password-label rounded px-2 py-1 text-sm text-white font-mono cursor-pointer absolute"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -329,6 +328,16 @@ export default function FormModal({ open, setOpen, item, mode }) {
               </svg>
             )}
           </div>
+          <svg
+            onClick={copyPassword}
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8 copy-label rounded px-2 py-1 text-sm text-white font-mono cursor-pointer absolute active:text-gray-300 active:bg-gray-800"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+          </svg>
         </div>
       </div>
 

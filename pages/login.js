@@ -126,7 +126,11 @@ export default function Login() {
           <button
             type="submit"
             disabled={isLoading}
-            className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg font-title tracking-widest"
+            className={
+              isLoading
+                ? "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none rounded text-lg font-title tracking-widest cursor-not-allowed"
+                : "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg font-title tracking-widest"
+            }
           >
             {isLoading ? "Loading..." : "Log In"}
           </button>

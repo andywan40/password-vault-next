@@ -125,5 +125,10 @@
 
 .password-label {
   top: 8px;
+  right: 30px;
+}
+
+.copy-label {
+  top: 8px;
   right: 5px;
 }
